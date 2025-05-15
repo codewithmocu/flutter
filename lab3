@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                login(context); // Updated method name
+                login(context); 
               },
               child: Text("login"),
             ),
