@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+void main(){
+  runApp(MaterialApp(home: TodoApp(),));
+}
+class TodoApp extends StatefulWidget {
+  const TodoApp({super.key});
+
+  @override
+  State<TodoApp> createState() => _TodoAppState();
+}
+
+class _TodoAppState extends State<TodoApp> {
+  final List<String> tasks =[];
+  final taskController=TextEditingController();
+  void addtask(){
+    if (taskController.text.isNotEmpty){
+      setState(() {
+        tasks.add(taskController.text);
+      });
+    }
+  }
+  void removetask(int index){
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('To-Do list'),
+      ),
+      body: Padding(padding: EdgeInsets.all(16),
+      child: Column(
+        children: [TextField(
+          controller: taskController,
+          decoration: InputDecoration(
+            labelText: "enter task",
+            border: OutlineInputBorder()
+          ),
+        ),
+          SizedBox(height: 10,),
+          ElevatedButton(onPressed: addtask, child: Text('add task')),
+          Expanded(child: ListView.builder(itemCount: tasks.length
+            ,itemBuilder: (context,index){
+            return Card(
+              child: ListTile(
+                title: Text(tasks[index]),
+                trailing: IconButton(onPressed: (){removetask(index);}, icon: Icon(Icons.delete,color: Colors.red,)),
+              ),
+            );
+            },))
+        ],
+      ),),
+    );
+  }
+}
